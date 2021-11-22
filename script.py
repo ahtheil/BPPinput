@@ -16,29 +16,33 @@ onlyfiles = [f for f in listdir(directory) if isfile(join(directory, f))]
 #Open an output file to write results to
 outF = open("/Users/andytheil/Desktop/Hypochiluswork/File_formating/pythontestoutput.txt","w")
 
-
 #Loop through directory to get data from each file, store in python, 
 for file in onlyfiles:
     f = open(("/Users/andytheil/Desktop/Hypochiluswork/File_formating/phylipalignment550/"+file),"r")
     
+#reading the first line in as the header
+    header = f.readline()
+    seqlen = header[3:6]
+
 #loop through each sequence in the file and check the header as CA  
     taxa = f.readlines()
-    header = taxa[0]
-    
-    
-    
+
+#Loop to calculate individuals per alingment file for header info
+    counter = 0
     for seq in taxa:
-        
-        counter = 0
         if (seq[0:2] == "CA"):
             counter += 1
+#Header format for printing to file
+    header = str(counter) + " " + seqlen
+ 
+#actually wiriting the header into the output file
+    outF.write(header) 
+    outF.write("\n")
+#Loop that writes the actual sequence
+    for seq in taxa:
+        if (seq[0:2] == "CA"):
             outF.write(str(seq))
-        #where I need to go from here is to complete the header
-        #In order to specify the header correctly, I need to count the
-        #number of files included and change the header to reflect that
-        
-        
-        
+    
     f.close()
 #Close output file
 
