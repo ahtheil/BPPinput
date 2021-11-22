@@ -38,10 +38,15 @@ for file in onlyfiles:
 #actually wiriting the header into the output file
     outF.write(header) 
     outF.write("\n")
+    
+#Making the header for each sequence at beginning of each line
+    genenum = file[0:8].replace("-","")
+    genenum = genenum.replace(".","")
+    genenum = genenum.replace(" ","")
 #Loop that writes the actual sequence
     for seq in taxa:
         if (seq[0:2] == "CA"):
-            outF.write(str(seq))
+            outF.write(genenum+"^"+str(seq))
     
     f.close()
 #Close output file
